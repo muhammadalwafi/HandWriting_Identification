@@ -1,0 +1,707 @@
+============================================================
+PREDICTION RESULTS
+============================================================
+
+File: 01_2_281.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 01 [WRONG]
+
+File: 01_2_491.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 01 [WRONG]
+
+File: 02_2_352.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 02 [WRONG]
+
+File: 02_2_492.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 02 [WRONG]
+
+File: 03_2_353.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 03 [WRONG]
+
+File: 03_2_493.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 03 [WRONG]
+
+File: 04_2_424.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 04 [WRONG]
+
+File: 04_2_494.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 04 [WRONG]
+
+File: 05_2_355.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 05 [WRONG]
+
+File: 05_2_495.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 05 [WRONG]
+
+File: 06_2_286.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 06 [WRONG]
+
+File: 06_2_496.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 06 [WRONG]
+
+File: 07_2_287.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 07 [WRONG]
+
+File: 07_2_427.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 07 [WRONG]
+
+File: 08_2_358.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 08 [WRONG]
+
+File: 08_2_428.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 08 [WRONG]
+
+File: 09_2_289.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 09 [WRONG]
+
+File: 09_2_359.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 09 [WRONG]
+
+File: 10_2_290.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 10 [WRONG]
+
+File: 10_2_360.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 10 [WRONG]
+
+File: 11_2_361.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 11 [WRONG]
+
+File: 11_2_431.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 11 [WRONG]
+
+File: 12_2_362.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 12 [WRONG]
+
+File: 12_2_432.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 12 [WRONG]
+
+File: 13_2_293.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 13 [WRONG]
+
+File: 13_2_433.png
+  Predicted: Writer 43
+  Confidence: 1.52%
+  Actual: Writer 13 [WRONG]
+
+File: 14_2_434.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 14 [WRONG]
+
+File: 14_2_504.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 14 [WRONG]
+
+File: 15_2_295.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 15 [WRONG]
+
+File: 15_2_435.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 15 [WRONG]
+
+File: 16_2_436.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 16 [WRONG]
+
+File: 16_2_506.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 16 [WRONG]
+
+File: 17_2_297.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 17 [WRONG]
+
+File: 17_2_507.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 17 [WRONG]
+
+File: 18_2_368.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 18 [WRONG]
+
+File: 18_2_508.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 18 [WRONG]
+
+File: 19_2_299.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 19 [WRONG]
+
+File: 19_2_369.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 19 [WRONG]
+
+File: 20_2_300.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 20 [WRONG]
+
+File: 20_2_440.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 20 [WRONG]
+
+File: 21_2_301.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 21 [CORRECT]
+
+File: 21_2_371.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 21 [CORRECT]
+
+File: 22_2_302.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 22 [WRONG]
+
+File: 22_2_372.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 22 [WRONG]
+
+File: 23_2_303.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 23 [WRONG]
+
+File: 23_2_373.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 23 [WRONG]
+
+File: 24_2_304.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 24 [WRONG]
+
+File: 24_2_514.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 24 [WRONG]
+
+File: 25_2_305.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 25 [WRONG]
+
+File: 25_2_375.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 25 [WRONG]
+
+File: 26_2_306.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 26 [WRONG]
+
+File: 26_2_516.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 26 [WRONG]
+
+File: 27_2_377.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 27 [WRONG]
+
+File: 27_2_447.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 27 [WRONG]
+
+File: 28_2_378.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 28 [WRONG]
+
+File: 28_2_518.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 28 [WRONG]
+
+File: 29_2_309.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 29 [WRONG]
+
+File: 29_2_519.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 29 [WRONG]
+
+File: 30_2_310.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 30 [WRONG]
+
+File: 30_2_520.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 30 [WRONG]
+
+File: 31_2_311.png
+  Predicted: Writer 43
+  Confidence: 1.52%
+  Actual: Writer 31 [WRONG]
+
+File: 31_2_381.png
+  Predicted: Writer 43
+  Confidence: 1.52%
+  Actual: Writer 31 [WRONG]
+
+File: 32_2_382.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 32 [WRONG]
+
+File: 32_2_452.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 32 [WRONG]
+
+File: 33_2_383.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 33 [WRONG]
+
+File: 33_2_523.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 33 [WRONG]
+
+File: 34_2_314.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 34 [WRONG]
+
+File: 34_2_524.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 34 [WRONG]
+
+File: 35_2_315.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 35 [WRONG]
+
+File: 35_2_385.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 35 [WRONG]
+
+File: 36_2_316.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 36 [WRONG]
+
+File: 36_2_386.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 36 [WRONG]
+
+File: 37_2_387.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 37 [WRONG]
+
+File: 37_2_457.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 37 [WRONG]
+
+File: 38_2_318.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 38 [WRONG]
+
+File: 38_2_388.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 38 [WRONG]
+
+File: 39_2_319.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 39 [WRONG]
+
+File: 39_2_529.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 39 [WRONG]
+
+File: 40_2_390.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 40 [WRONG]
+
+File: 40_2_460.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 40 [WRONG]
+
+File: 41_2_321.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 41 [WRONG]
+
+File: 41_2_531.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 41 [WRONG]
+
+File: 42_2_392.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 42 [WRONG]
+
+File: 42_2_532.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 42 [WRONG]
+
+File: 43_2_323.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 43 [WRONG]
+
+File: 43_2_393.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 43 [WRONG]
+
+File: 44_2_324.png
+  Predicted: Writer 43
+  Confidence: 1.51%
+  Actual: Writer 44 [WRONG]
+
+File: 44_2_464.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 44 [WRONG]
+
+File: 45_2_325.png
+  Predicted: Writer 21
+  Confidence: 1.49%
+  Actual: Writer 45 [WRONG]
+
+File: 45_2_395.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 45 [WRONG]
+
+File: 46_2_326.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 46 [WRONG]
+
+File: 46_2_466.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 46 [WRONG]
+
+File: 47_2_397.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 47 [WRONG]
+
+File: 47_2_537.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 47 [WRONG]
+
+File: 48_2_328.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 48 [WRONG]
+
+File: 48_2_468.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 48 [WRONG]
+
+File: 49_2_329.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 49 [WRONG]
+
+File: 49_2_539.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 49 [WRONG]
+
+File: 50_2_330.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 50 [WRONG]
+
+File: 50_2_470.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 50 [WRONG]
+
+File: 51_2_401.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 51 [WRONG]
+
+File: 51_2_471.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 51 [WRONG]
+
+File: 52_2_332.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 52 [WRONG]
+
+File: 52_2_472.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 52 [WRONG]
+
+File: 53_2_403.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 53 [WRONG]
+
+File: 53_2_543.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 53 [WRONG]
+
+File: 54_2_334.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 54 [WRONG]
+
+File: 54_2_404.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 54 [WRONG]
+
+File: 55_2_335.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 55 [WRONG]
+
+File: 55_2_405.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 55 [WRONG]
+
+File: 56_2_476.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 56 [WRONG]
+
+File: 56_2_546.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 56 [WRONG]
+
+File: 57_2_337.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 57 [WRONG]
+
+File: 57_2_407.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 57 [WRONG]
+
+File: 58_2_408.png
+  Predicted: Writer 21
+  Confidence: 1.50%
+  Actual: Writer 58 [WRONG]
+
+File: 58_2_548.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 58 [WRONG]
+
+File: 59_2_339.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 59 [WRONG]
+
+File: 59_2_409.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 59 [WRONG]
+
+File: 60_2_340.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 60 [WRONG]
+
+File: 60_2_480.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 60 [WRONG]
+
+File: 61_2_481.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 61 [WRONG]
+
+File: 61_2_551.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 61 [WRONG]
+
+File: 62_2_342.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 62 [WRONG]
+
+File: 62_2_552.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 62 [WRONG]
+
+File: 63_2_413.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 63 [WRONG]
+
+File: 63_2_553.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 63 [WRONG]
+
+File: 64_2_414.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 64 [WRONG]
+
+File: 64_2_554.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 64 [WRONG]
+
+File: 65_2_345.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 65 [WRONG]
+
+File: 65_2_485.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 65 [WRONG]
+
+File: 66_2_486.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 66 [WRONG]
+
+File: 66_2_556.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 66 [WRONG]
+
+File: 67_2_487.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 67 [WRONG]
+
+File: 67_2_557.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 67 [WRONG]
+
+File: 68_2_418.png
+  Predicted: Writer 21
+  Confidence: 1.53%
+  Actual: Writer 68 [WRONG]
+
+File: 68_2_558.png
+  Predicted: Writer 21
+  Confidence: 1.54%
+  Actual: Writer 68 [WRONG]
+
+File: 69_2_349.png
+  Predicted: Writer 21
+  Confidence: 1.52%
+  Actual: Writer 69 [WRONG]
+
+File: 69_2_559.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 69 [WRONG]
+
+File: 70_2_420.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 70 [WRONG]
+
+File: 70_2_490.png
+  Predicted: Writer 21
+  Confidence: 1.51%
+  Actual: Writer 70 [WRONG]
+
+============================================================
+ACCURACY: 2/140 = 1.43%
+============================================================
