@@ -82,7 +82,7 @@ def main():
     # Load model & labels
     model = tf.keras.models.load_model(MODEL_PATH)
     with open(LABELS_PATH) as f: labels = json.load(f)
-    print(f"✅ Model loaded | Writers: {len(labels)}")
+    print(f" Model loaded | Writers: {len(labels)}")
     
     # Test images
     files = sorted([f for f in os.listdir(TEST_DIR) if f.endswith(".png")])
@@ -100,14 +100,14 @@ def main():
     
     # Results
     accuracy = correct / len(files) * 100
-    print(f"\n🎯 Accuracy: {accuracy:.2f}% ({correct}/{len(files)})")
+    print(f"\n Accuracy: {accuracy:.2f}% ({correct}/{len(files)})")
     
     # Save CSV
     with open(OUTPUT_CSV, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["filename", "actual_label", "predicted_label"])
         w.writerows(results)
-    print(f"📄 Saved: {OUTPUT_CSV}")
+    print(f" Saved: {OUTPUT_CSV}")
 
 if __name__ == "__main__":
     main()
