@@ -1,166 +1,182 @@
-"""Siamese Network - Handwriting Writer Recognition (Optimized)"""
-import os, json, random
-import numpy as np
+"""Character Segmentation - Handwriting Writer Recognition"""
+import os, json, random, numpy as np, cv2
 import tensorflow as tf
-from tensorflow.keras import layers, models, callbacks, optimizers
+from tensorflow.keras import layers, models, callbacks
+from tensorflow.keras.utils import to_categorical
+from collections import Counter
 
-# === CONFIG ===  
-IMG_SIZE = 128          # Balance antara detail dan speed
-BATCH_SIZE = 16
-EPOCHS = 30
-STEPS_PER_EPOCH = 150   # Steps per epoch
-TRAIN_DIR = "train"
-MODEL_OUT = "model.keras"
-EMBEDDINGS_OUT = "embeddings.npy"
+# === CONFIG ===
+TRAIN_DIR, MODEL_PATH, LABELS_PATH = "train", "model.keras", "labels.json"
+CHAR_H, CHAR_W, MIN_CHAR_W = 32, 32, 6
+EPOCHS, BATCH_SIZE = 30, 64
 
 random.seed(42); np.random.seed(42); tf.random.set_seed(42)
 
-# === LOAD IMAGE PATHS & LABELS ===
-image_paths, labels = [], []
-for fname in os.listdir(TRAIN_DIR):
-    if fname.lower().endswith((".png", ".jpg", ".jpeg")):
-        image_paths.append(os.path.join(TRAIN_DIR, fname))
-        labels.append(fname[:2])
+# === SEGMENTATION FUNCTIONS ===
+def to_gray(img):
+    return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if len(img.shape) == 3 else img
 
-unique_labels = sorted(set(labels))
-label_to_images = {l: [] for l in unique_labels}
-for path, lbl in zip(image_paths, labels):
-    label_to_images[lbl].append(path)
+def segment_lines(gray):
+    h = gray.shape[0]
+    _, th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    proj = np.sum(th, axis=1)
+    if proj.max() == 0: return [(0, h)]
+    thresh = max(1, int(0.03 * proj.max()))
+    lines, in_line, start = [], False, 0
+    for y, v in enumerate(proj):
+        if v > thresh and not in_line: in_line, start = True, y
+        elif v <= thresh and in_line:
+            in_line = False
+            if y - start >= 6: lines.append((max(0, start-2), min(h, y+2)))
+    if in_line: lines.append((start, h))
+    return lines if lines else [(0, h)]
 
-print(f"Writers: {len(unique_labels)} | Images: {len(image_paths)}")
+def segment_words(line_img):
+    gray = to_gray(line_img)
+    _, th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    dilated = cv2.dilate(th, cv2.getStructuringElement(cv2.MORPH_RECT, (15, 3)), iterations=1)
+    contours, _ = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    bboxes = sorted([cv2.boundingRect(c) for c in contours if cv2.boundingRect(c)[2] >= 8], key=lambda b: b[0])
+    return [line_img[y:y+h, x:x+w] for x, y, w, h in bboxes]
 
-# === IMAGE LOADER + AUGMENTATION ===
-def load_image(path, augment=False):
-    img = tf.io.read_file(path)
-    img = tf.image.decode_png(img, channels=1)  # Grayscale
-    img = tf.image.resize(img, (IMG_SIZE, IMG_SIZE))
-    img = tf.cast(img, tf.float32) / 255.0
+def segment_chars(word_img):
+    gray = to_gray(word_img)
+    _, th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    cols = np.sum(th, axis=0)
+    thresh = max(1, int(0.05 * cols.max()))
+    chars, in_char, start = [], False, 0
+    for i, sep in enumerate(cols <= thresh):
+        if not sep and not in_char: in_char, start = True, i
+        elif sep and in_char:
+            in_char = False
+            if i - start >= MIN_CHAR_W: chars.append(word_img[:, start:i])
+    if in_char and len(cols) - start >= MIN_CHAR_W: chars.append(word_img[:, start:])
+    return chars
+
+def resize_char(ch_img):
+    ch = cv2.cvtColor(ch_img, cv2.COLOR_GRAY2RGB) if len(ch_img.shape) == 2 else ch_img.copy()
+    h, w = ch.shape[:2]
+    scale = min(CHAR_W / w, CHAR_H / h)
+    nw, nh = max(1, int(w * scale)), max(1, int(h * scale))
+    resized = cv2.resize(ch, (nw, nh), interpolation=cv2.INTER_AREA)
+    padded = 255 * np.ones((CHAR_H, CHAR_W, 3), dtype=np.uint8)
+    padded[(CHAR_H-nh)//2:(CHAR_H-nh)//2+nh, (CHAR_W-nw)//2:(CHAR_W-nw)//2+nw] = resized
+    return padded.astype(np.float32) / 255.0
+
+def augment_img(img):
+    """Simple augmentation"""
+    h, w = img.shape[:2]
+    augs = [img]
+    # Rotate slightly
+    for angle in [-5, 5]:
+        M = cv2.getRotationMatrix2D((w//2, h//2), angle, 1.0)
+        augs.append(cv2.warpAffine(img, M, (w, h), borderValue=(255,255,255)))
+    # Brightness
+    bright = cv2.convertScaleAbs(img, alpha=1.2, beta=10)
+    dark = cv2.convertScaleAbs(img, alpha=0.8, beta=-10)
+    augs.extend([bright, dark])
+    return augs
+
+def extract_chars(img, label_idx):
+    X, y = [], []
+    W = img.shape[1]
+    patches = [img[:, :W//3], img[:, W//3:2*W//3], img[:, 2*W//3:]]
+    # Add augmented patches
+    all_patches = []
+    for p in patches:
+        all_patches.extend(augment_img(p))
+    for patch in all_patches:
+        for y1, y2 in segment_lines(to_gray(patch)):
+            line_img = patch[y1:y2, :]
+            words = segment_words(line_img) or [line_img]
+            for w in words:
+                chars = segment_chars(w) or [w]
+                for c in chars:
+                    X.append(resize_char(c))
+                    y.append(label_idx)
+    return X, y
+
+# === BUILD MODEL ===
+def build_model(num_classes):
+    inp = layers.Input(shape=(CHAR_H, CHAR_W, 3))
+    x = layers.Conv2D(32, 3, padding="same", activation="relu")(inp)
+    x = layers.BatchNormalization()(x)
+    x = layers.MaxPool2D()(x)
+    x = layers.Dropout(0.2)(x)
+    x = layers.Conv2D(64, 3, padding="same", activation="relu")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.MaxPool2D()(x)
+    x = layers.Dropout(0.2)(x)
+    x = layers.Conv2D(128, 3, padding="same", activation="relu")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.MaxPool2D()(x)
+    x = layers.Dropout(0.2)(x)
+    x = layers.Conv2D(256, 3, padding="same", activation="relu")(x)
+    x = layers.GlobalAveragePooling2D()(x)
+    x = layers.Dense(512, activation="relu")(x)
+    x = layers.Dropout(0.5)(x)
+    out = layers.Dense(num_classes, activation="softmax")(x)
+    return models.Model(inp, out)
+
+# === MAIN ===
+def main():
+    print("=" * 50)
+    print("CHARACTER SEGMENTATION - WRITER RECOGNITION")
+    print("=" * 50)
     
-    if augment:
-        img = tf.image.random_brightness(img, 0.15)
-        img = tf.image.random_contrast(img, 0.85, 1.15)
-        # Random rotation via affine (simplified)
-        if random.random() > 0.5:
-            img = tf.image.flip_left_right(img)
-    return img
-
-# === PAIR GENERATOR ===
-def pair_generator(batch_size=BATCH_SIZE):
-    while True:
-        img_a, img_b, y = [], [], []
-        for _ in range(batch_size):
-            if random.random() < 0.5:
-                # POSITIVE PAIR (same writer)
-                label = random.choice(unique_labels)
-                path = random.choice(label_to_images[label])
-                img1 = load_image(path, augment=True)
-                img2 = load_image(path, augment=True)
-                label_pair = 1
-            else:
-                # NEGATIVE PAIR (different writers)
-                l1, l2 = random.sample(unique_labels, 2)
-                img1 = load_image(random.choice(label_to_images[l1]), augment=True)
-                img2 = load_image(random.choice(label_to_images[l2]), augment=True)
-                label_pair = 0
-            img_a.append(img1)
-            img_b.append(img2)
-            y.append(label_pair)
-        yield (tf.stack(img_a), tf.stack(img_b)), tf.convert_to_tensor(y, dtype=tf.float32)
-
-# === CUSTOM L1 DISTANCE LAYER (NO LAMBDA) ===
-class L1Distance(layers.Layer):
-    def call(self, inputs):
-        x1, x2 = inputs
-        return tf.abs(x1 - x2)
-
-# === ENCODER ===
-def build_encoder():
-    return models.Sequential([
-        layers.Input(shape=(IMG_SIZE, IMG_SIZE, 1)),
-        
-        layers.Conv2D(32, 3, padding='same', activation='relu'),
-        layers.BatchNormalization(),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.2),
-        
-        layers.Conv2D(64, 3, padding='same', activation='relu'),
-        layers.BatchNormalization(),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.2),
-        
-        layers.Conv2D(128, 3, padding='same', activation='relu'),
-        layers.BatchNormalization(),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.3),
-        
-        layers.GlobalAveragePooling2D(),
-        layers.Dense(128, activation='relu'),
-        layers.Dropout(0.3),
-    ], name="encoder")
-
-encoder = build_encoder()
-
-# === SIAMESE MODEL ===
-input_a = layers.Input(shape=(IMG_SIZE, IMG_SIZE, 1), name='input_a')
-input_b = layers.Input(shape=(IMG_SIZE, IMG_SIZE, 1), name='input_b')
-
-feat_a = encoder(input_a)
-feat_b = encoder(input_b)
-
-distance = L1Distance()([feat_a, feat_b])
-output = layers.Dense(1, activation='sigmoid')(distance)
-
-model = models.Model([input_a, input_b], output)
-model.compile(
-    optimizer=optimizers.Adam(learning_rate=0.001),
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-
-model.summary()
-
-# === CALLBACKS ===
-cbs = [
-    callbacks.EarlyStopping(monitor='loss', patience=5, restore_best_weights=True),
-    callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5, patience=3, min_lr=1e-6),
-]
-
-# === TRAINING ===
-print("\n" + "="*50 + "\nTRAINING SIAMESE NETWORK\n" + "="*50)
-model.fit(
-    pair_generator(),
-    steps_per_epoch=STEPS_PER_EPOCH,
-    epochs=EPOCHS,
-    callbacks=cbs
-)
-
-# === SAVE ENCODER & EMBEDDINGS ===
-print("\nSaving...")
-encoder.save(MODEL_OUT)
-
-# Compute reference embeddings
-print("Computing reference embeddings...")
-ref_embs = {}
-for lbl in unique_labels:
-    paths = label_to_images[lbl]
-    embs = []
-    for path in paths:
-        # Load image and create augmented versions
-        for _ in range(15):  # 15 augmented versions per image
-            img = load_image(path, augment=True)
-            img_batch = tf.expand_dims(img, 0)
-            emb = encoder.predict(img_batch, verbose=0)[0]
-            embs.append(emb)
+    # Load images
+    files = sorted([os.path.join(TRAIN_DIR, f) for f in os.listdir(TRAIN_DIR) if f.endswith(".png")])
+    labels = sorted({os.path.basename(f)[:2] for f in files})
+    label_to_idx = {l: i for i, l in enumerate(labels)}
+    print(f"Writers: {len(labels)} | Images: {len(files)}")
     
-    # Average embedding
-    avg_emb = np.mean(embs, axis=0)
-    avg_emb = avg_emb / (np.linalg.norm(avg_emb) + 1e-8)
-    ref_embs[int(lbl) - 1] = avg_emb  # 0-indexed
+    # Extract characters
+    print("\nExtracting characters...")
+    X_all, y_all = [], []
+    for i, fp in enumerate(files):
+        img = cv2.imread(fp)
+        if img is None: continue
+        X, y = extract_chars(img, label_to_idx[os.path.basename(fp)[:2]])
+        X_all.extend(X); y_all.extend(y)
+        if (i+1) % 20 == 0: print(f"  {i+1}/{len(files)} images, {len(X_all)} chars")
+    
+    print(f"\nTotal characters: {len(X_all)}")
+    
+    # Prepare data
+    X = np.array(X_all, dtype=np.float32)
+    y = np.array(y_all, dtype=np.int32)
+    perm = np.random.permutation(len(X))
+    X, y = X[perm], y[perm]
+    y_cat = to_categorical(y, num_classes=len(labels))
+    
+    # Split
+    val_n = max(1, int(0.1 * len(X)))
+    X_val, y_val = X[:val_n], y_cat[:val_n]
+    X_train, y_train = X[val_n:], y_cat[val_n:]
+    print(f"Train: {len(X_train)} | Val: {len(X_val)}")
+    
+    # Class weights
+    counts = Counter(y.tolist())
+    class_weight = {i: len(y) / (len(counts) * counts[i]) for i in counts}
+    
+    # Build & train
+    model = build_model(len(labels))
+    model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
+    model.summary()
+    
+    cb = [
+        callbacks.ModelCheckpoint(MODEL_PATH, monitor="val_accuracy", save_best_only=True, verbose=1),
+        callbacks.EarlyStopping(monitor="val_accuracy", patience=5, restore_best_weights=True)
+    ]
+    
+    model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=EPOCHS, 
+              batch_size=BATCH_SIZE, class_weight=class_weight, callbacks=cb)
+    
+    # Save
+    model.save(MODEL_PATH)
+    with open(LABELS_PATH, "w") as f: json.dump(labels, f)
+    print(f"\n Model saved: {MODEL_PATH}")
+    print(f" Labels saved: {LABELS_PATH}")
 
-np.save(EMBEDDINGS_OUT, ref_embs)
-
-# Save label mapping
-with open("labels.json", "w") as f:
-    json.dump({str(i): lbl for i, lbl in enumerate(unique_labels)}, f)
-
-print(f"\n{'='*50}\nDONE!\nModel: {MODEL_OUT}\nEmbeddings: {EMBEDDINGS_OUT}\nRun: python run.py\n{'='*50}")
+if __name__ == "__main__":
+    main()
